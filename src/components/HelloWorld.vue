@@ -1,31 +1,42 @@
 <template>
   <div>
+  <div>
 
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <div style="text-align: center;">
     <div v-for="fountain in fountains" v-bind:key="fountain">
-      <div v-if="fountain.id === getid()" style="float: left">
-        <b-row>
-          {{ fountain.name }}
-        </b-row>
-        <b-row>
+      <div v-if="fountain.id === getid()" class="center">
 
-          <b-col>
-
-
-            <img :src="fountain.source" alt="" class="scaledown">
-            <br>
-
-          </b-col>
-        </b-row>
+                  <h1>Sci-Tech Public Water Fountain Rating System</h1>
+                  <div class="boxed">
+                    <h3>{{fountain.name}}</h3>
+                    <img :src="fountain.source" alt="150x150 Placeholder Image" class="scaledown align-self-center">
+                    <div class="rate">
+                      <input type="radio" id="star5" name="rate" value="5" />
+                      <label for="star5" title="text">5 stars</label>
+                      <input type="radio" id="star4" name="rate" value="4" />
+                      <label for="star4" title="text">4 stars</label>
+                      <input type="radio" id="star3" name="rate" value="3" />
+                      <label for="star3" title="text">3 stars</label>
+                      <input type="radio" id="star2" name="rate" value="2" />
+                      <label for="star2" title="text">2 stars</label>
+                      <input type="radio" id="star1" name="rate" value="1" />
+                      <label for="star1" title="text">1 star</label>
+                    </div>
+                  </div>
       </div>
     </div>
 
-    <b-button block variant="danger" v-on:click="next()">Next</b-button>
+
+  </div>
+    <b-button block variant="danger" class="bottom" v-on:click="next(); getStars()">Next</b-button>
+  </div>
   </div>
 </template>
 
 <script>
 export default {
+
   name: 'HelloWorld',
   data() {
     return {
@@ -71,7 +82,21 @@ export default {
       const int = parseInt(num)
       const nextint = int + 1
       window.location.replace(window.location.protocol + "//" + window.location.host + '/?id=' + nextint.toString())
-    }
+    },
+    storeStars() {
+      var radios = document.getElementsByName('rate');
+
+      for (var i = 0, length = radios.length; i < length; i++) {
+        if (radios[i].checked) {
+          // do whatever you want with the checked radio
+          alert(radios[i].value);
+
+          // only one radio can be logically checked, don't check the rest
+          break;
+        }
+      }
+    },
+
   }
 }
 </script>
@@ -79,9 +104,18 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 
+.bottom {
+  position: absolute;
+  bottom: 50px;
+}
+
+.center {
+  display: inline-block;
+  height: 30px;
+}
+
 .scaledown {
-  width: 25%;
-  height: 25%
+  height: 300px;
 }
 
 .rb {
@@ -138,4 +172,60 @@ export default {
 }
 
 /* Modified from: https://github.com/mukulkant/Star-rating-using-pure-css */
+
+
+body {
+  background-color: orange;
+}
+h1, p {
+  font-family: 'Work Sans', sans-serif;
+}
+
+
+.stars input {
+  position: absolute;
+  left: -999999px;
+}
+
+.stars span a {
+  display: inline-block;
+  padding-right:4px;
+  text-decoration: none;
+  margin:0;
+}
+
+.stars span a:after {
+  position: relative;
+  font-size: 18px;
+  font-family: 'FontAwesome', serif;
+  display: block;
+  content: "\f005";
+  color: #9e9e9e;
+}
+
+
+span {
+  font-size: 0; /* trick to remove inline-element's margin */
+}
+
+.stars span a:hover ~ a:after{
+  color: #9e9e9e !important;
+}
+span.active a.active ~ a:after{
+  color: #9e9e9e;
+}
+
+span:hover a:after{
+  color:blue !important;
+}
+
+span.active a:after,
+.stars a.active:after{
+  color:blue;
+}
+
+.boxed {
+  width: 300px;
+  border: 1px solid black ;
+}
 </style>
