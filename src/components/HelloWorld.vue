@@ -180,7 +180,7 @@ export default {
 
 .center-2 {
   position: relative;
-  left: 50px
+  left: 115px
 }
 
 .bottom {
@@ -308,10 +308,10 @@ span.active a:after,
 }
 
 .boxed {
-  width: 300px;
+  width: 405px;
   border: 1px solid black ;
   position: relative;
-  left: 200px
+  left: 150px
 }
 
 
