@@ -12,8 +12,8 @@
                   <div class="boxed">
                     <h3>{{fountain.name}}</h3>
 
-                    <img :src="fountain.source" alt="150x1der Image" class="scaledown align-self-center">
-                    <div class="rate">
+                    <img :src="fountain.source" alt="if you see this something went wrong. yell loudly" class="scaledown align-self-center">
+                    <div class="rate center-2">
                       <input type="radio" id="star5" name="rate" value="5" />
                       <label for="star5" title="text">5 stars</label>
                       <input type="radio" id="star4" name="rate" value="4" />
@@ -178,6 +178,11 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 
+.center-2 {
+  position: relative;
+  left: 50px
+}
+
 .bottom {
   position: absolute;
   bottom: 60px;
@@ -195,6 +200,7 @@ export default {
 
 .scaledown {
   height: 300px;
+  position: relative;
 }
 
 .rb {
@@ -225,21 +231,21 @@ export default {
   overflow: hidden;
   white-space: nowrap;
   cursor: pointer;
-  font-size: 30px;
+  font-size: 32px;
   color: #ccc;
 }
 
 .rate:not(:checked) > label:before {
-  content: '★ ';
+  content: url("../../src/assets/gray_star.png");
 }
 
 .rate > input:checked ~ label {
-  color: #ffc700;
+  content: url("../../src/assets/star.png");
 }
 
 .rate:not(:checked) > label:hover,
 .rate:not(:checked) > label:hover ~ label {
-  color: #deb217;
+  content: url("../../src/assets/star.png");
 }
 
 .rate > input:checked + label:hover,
@@ -247,7 +253,7 @@ export default {
 .rate > input:checked ~ label:hover,
 .rate > input:checked ~ label:hover ~ label,
 .rate > label:hover ~ input:checked ~ label {
-  color: #c59b08;
+  background-image: url("../../src/assets/star.png");
 }
 
 /* Modified from: https://github.com/mukulkant/Star-rating-using-pure-css */
@@ -275,10 +281,8 @@ h1, p {
 
 .stars span a:after {
   position: relative;
-  font-size: 18px;
-  font-family: 'FontAwesome', serif;
   display: block;
-  content: "\f005";
+  background-image: url("../../src/assets/star.png");
   color: #9e9e9e;
 }
 
@@ -306,5 +310,9 @@ span.active a:after,
 .boxed {
   width: 300px;
   border: 1px solid black ;
+  position: relative;
+  left: 200px
 }
+
+
 </style>
