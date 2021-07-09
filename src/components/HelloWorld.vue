@@ -5,7 +5,8 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
     <div style="text-align: center;">
     <div v-for="fountain in fountains" v-bind:key="fountain">
-      <div v-if="fountain.id === getid()" class="center">
+      <div v-if="fountain.id === getid()">
+        <div class="center">
 
                   <h1>Sci-Tech Public Water Fountain Rating System</h1>
                   <div class="boxed">
@@ -25,12 +26,14 @@
                       <label for="star1" title="text">1 star</label>
                     </div>
                   </div>
+        </div>
+        <b-button block variant="warning" class="bottom" style="padding-left: 0" v-on:click="next(); storeStars(fountain.name)">Next</b-button>
       </div>
     </div>
 
 
   </div>
-    <b-button block variant="warning" class="bottom" v-on:click="next(); storeStars()">Next</b-button>
+
     <b-button block variant="danger" class="bottom-2" v-on:click="restart()">Restart</b-button>
   </div>
   </div>
@@ -135,16 +138,8 @@ export default {
       const queryString = window.location.search;
       const urlParams = new URLSearchParams(queryString);
       return urlParams.get('id')
-
     },
-    next() {
-      const queryString = window.location.search;
-      const urlParams = new URLSearchParams(queryString);
-      const num = urlParams.get('id')
-      const int = parseInt(num)
-      const nextint = int + 1
-      window.location.replace(window.location.protocol + "//" + window.location.host + '/?id=' + nextint.toString())
-    },
+    next() {},
     restart() {
       window.location.replace(window.location.protocol + "//" + window.location.host + '/?id=' + '1')
     },
@@ -153,21 +148,27 @@ export default {
 
       for (var i = 0, length = radios.length; i < length; i++) {
         if (radios[i].checked) {
+          // eslint-disable-next-line no-unused-vars
+          let val = 0;
           // do whatever you want with the checked radio
           if (localStorage.getItem(id)) {
             // eslint-disable-next-line no-unused-vars
-            let val = localStorage.getItem(id)
+            val = parseInt(localStorage.getItem(id))
           }
-          else {
-            let val = 0
-          }
-          val = radios[i].value + val
-          localStorage.setItem(id, radios[i].value)
+          val += parseInt(radios[i].value)
+          localStorage.setItem(id, val.toString())
 
           // only one radio can be logically checked, don't check the rest
           break;
         }
       }
+      const queryString = window.location.search;
+      const urlParams = new URLSearchParams(queryString);
+      const num = urlParams.get('id')
+      const int = parseInt(num)
+      const nextint = int + 1
+      window.location.replace(window.location.protocol + "//" + window.location.host + '/?id=' + nextint.toString())
+
     },
 
   }
@@ -179,7 +180,7 @@ export default {
 
 .bottom {
   position: absolute;
-  bottom: 50px;
+  bottom: 60px;
 }
 
 .bottom-2 {
