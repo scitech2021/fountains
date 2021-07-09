@@ -10,7 +10,8 @@
                   <h1>Sci-Tech Public Water Fountain Rating System</h1>
                   <div class="boxed">
                     <h3>{{fountain.name}}</h3>
-                    <img :src="fountain.source" alt="150x150 Placeholder Image" class="scaledown align-self-center">
+
+                    <img :src="fountain.source" alt="150x1der Image" class="scaledown align-self-center">
                     <div class="rate">
                       <input type="radio" id="star5" name="rate" value="5" />
                       <label for="star5" title="text">5 stars</label>
@@ -29,7 +30,8 @@
 
 
   </div>
-    <b-button block variant="danger" class="bottom" v-on:click="next(); getStars()">Next</b-button>
+    <b-button block variant="warning" class="bottom" v-on:click="next(); storeStars()">Next</b-button>
+    <b-button block variant="danger" class="bottom-2" v-on:click="restart()">Restart</b-button>
   </div>
   </div>
 </template>
@@ -50,17 +52,77 @@ export default {
             {
               name: "Frost",
               id: "1",
-              source: "https://cdn.shopify.com/s/files/1/1276/8957/products/Parisienne_Two_Tier_Outdoor_Water_Fountain.jpg?v=1615722690"
+              source: require('@/assets/images/Frost.jpg')
             },
             {
               name: "Chadar Ochel",
               id: "2",
-              source: "https://www.designingbuildings.co.uk/w/images/e/ee/Fountain.jpg"
+              source: require('@/assets/images/Hadar Ochel.jpg')
             },
             {
               name: 'Sagan',
               id: '3',
-              source: ''
+              source: require('@/assets/images/Sagan.jpg')
+            },
+            {
+              name: 'Baer',
+              id: '4',
+              source: require('@/assets/images/Baer.jpg')
+            },
+            {
+              name: 'Elion',
+              id: '5',
+              source: require('@/assets/images/E-Lion.jpg')
+            },
+            {
+              name: 'Field House',
+              id: '6',
+              source: require('@/assets/images/Field House.jpg')
+            },
+            {
+              name: 'Downstairs Chadar',
+              id: '7',
+              source: require('@/assets/images/Hadar downstairs.jpg')
+            },
+            {
+              name: 'Hockey Rink',
+              id: '8',
+              source: require('@/assets/images/Hockey ring.jpg')
+            },
+            {
+              name: 'Katz',
+              id: '9',
+              source: require('@/assets/images/Katz.jpg')
+            },
+            {
+              name: 'Library',
+              id: '10',
+              source: require('@/assets/images/Library filler.jpg')
+            },
+            {
+              name: 'PAC',
+              id: '11',
+              source: require('@/assets/images/PAC.jpg')
+            },
+            {
+              name: 'Parsons',
+              id: '12',
+              source: require('@/assets/images/Parsons.jpg')
+            },
+            {
+              name: 'Rosie',
+              id: '13',
+              source: require('@/assets/images/Rosie.jpg')
+            },
+            {
+              name: 'Sagan',
+              id: '14',
+              source: require('@/assets/images/Sagan.jpg')
+            },
+            {
+              name: 'Technion',
+              id: '15',
+              source: require('@/assets/images/Technion.jpg')
             }
           ],
     }
@@ -83,13 +145,24 @@ export default {
       const nextint = int + 1
       window.location.replace(window.location.protocol + "//" + window.location.host + '/?id=' + nextint.toString())
     },
-    storeStars() {
+    restart() {
+      window.location.replace(window.location.protocol + "//" + window.location.host + '/?id=' + '1')
+    },
+    storeStars(id) {
       var radios = document.getElementsByName('rate');
 
       for (var i = 0, length = radios.length; i < length; i++) {
         if (radios[i].checked) {
           // do whatever you want with the checked radio
-          alert(radios[i].value);
+          if (localStorage.getItem(id)) {
+            // eslint-disable-next-line no-unused-vars
+            let val = localStorage.getItem(id)
+          }
+          else {
+            let val = 0
+          }
+          val = radios[i].value + val
+          localStorage.setItem(id, radios[i].value)
 
           // only one radio can be logically checked, don't check the rest
           break;
@@ -107,6 +180,11 @@ export default {
 .bottom {
   position: absolute;
   bottom: 50px;
+}
+
+.bottom-2 {
+  position: absolute;
+  bottom: 25px
 }
 
 .center {
